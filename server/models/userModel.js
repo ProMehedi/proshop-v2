@@ -2,10 +2,10 @@ import mongoose from 'mongoose'
 
 const userShema = mongoose.Shema(
   {
-    name: { type: 'string', required: true },
-    email: { type: 'string', required: true, unique: true },
-    password: { type: 'string', required: true },
-    isAdmin: { type: 'boolean', required: true, default: false },
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    isAdmin: { type: Boolean, required: true, default: false },
   },
   {
     timestamps: true,
