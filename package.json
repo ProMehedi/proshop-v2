@@ -8,7 +8,7 @@
     "start": "node server/server"
   },
   "repository": "https://github.com/ProMehedi/proshop-v2.git",
-  "author": "promehedi <mmhasan563@gmail.com>",
+  "author": "Mehedi Hasan",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1"

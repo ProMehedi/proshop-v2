@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
+import axios from 'axios'
 import Product from '../components/Product'
-var jsonData = require('../products.json')
 
 const HomePage = () => {
   const [products, setProducts] = useState([])
 
   useEffect(() => {
-    setProducts(jsonData)
+    const reqData = async () => {
+      const { data } = await axios.get('/api/v1/products')
+      setProducts(data)
+    }
+
+    reqData()
   }, [])
+
+  if (products.length === 0) {
+    return <h1>Loading...</h1>
+  }
 
   return (
     <>

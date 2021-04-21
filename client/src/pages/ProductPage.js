@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Rating from '../components/Rating'
-var jsonData = require('../products.json')
+// var jsonData = require('../products.json')
 
 const ProductPage = ({ match }) => {
   const [products, setProducts] = useState([])
   const [product, setProduct] = useState({})
 
   useEffect(() => {
-    setProducts(jsonData)
+    // setProducts(jsonData)
     const selectedProduct = products.find(
       (prod) => prod._id === match.params.id
     )
