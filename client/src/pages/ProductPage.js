@@ -1,20 +1,19 @@
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Rating from '../components/Rating'
-// var jsonData = require('../products.json')
 
 const ProductPage = ({ match }) => {
-  const [products, setProducts] = useState([])
   const [product, setProduct] = useState({})
 
   useEffect(() => {
-    // setProducts(jsonData)
-    const selectedProduct = products.find(
-      (prod) => prod._id === match.params.id
-    )
-    setProduct(selectedProduct)
-  }, [match, products])
+    const reqData = async () => {
+      const { data } = await axios.get(`/api/v1/products/${match.params.id}`)
+      setProduct(data)
+    }
+    reqData()
+  }, [match])
 
   if (!product) {
     return <h1>Loading...</h1>
