@@ -10,3 +10,13 @@ body {
 main {
   min-height: 88.1vh;
 }
+
+.product {
+  color: #000;
+}
+
+.product a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
