@@ -5,12 +5,19 @@
   "description": "Mern Stack Ecommerce Website Build with NodeJS, ReactJS, MongoBD & Express",
   "main": "server.js",
   "scripts": {
-    "start": "node server/server"
+    "start": "node server/server",
+    "server": "nodemon server/server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": "https://github.com/ProMehedi/proshop-v2.git",
   "author": "Mehedi Hasan",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^6.0.2",
+    "nodemon": "^2.0.7"
   }
 }
