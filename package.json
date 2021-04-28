@@ -8,7 +8,9 @@
     "start": "node server/server",
     "server": "nodemon server/server",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node server/data/seeder",
+    "data:destroy": "node server/data/seeder -d"
   },
   "repository": "https://github.com/ProMehedi/proshop-v2.git",
   "author": "Mehedi Hasan",
