@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
-import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux'
+import { listProducts } from '../actions/productActions'
 import Product from '../components/Product'
 
 const HomePage = () => {
-  const [products, setProducts] = useState([])
+  const dispatch = useDispatch()
+  const productList = useSelector((state) => state.productList)
+  const { loading, error, products } = productList
 
   useEffect(() => {
-    const reqData = async () => {
-      const { data } = await axios.get('/api/v1/products')
-      setProducts(data)
-    }
+    dispatch(listProducts())
+  }, [dispatch])
 
-    reqData()
-  }, [])
-
-  if (products.length === 0) {
+  if (loading) {
     return <h1>Loading...</h1>
+  }
+
+  if (error) {
+    return <h1>{error}</h1>
   }
 
   return (
