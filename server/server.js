@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import colors from 'colors'
 import connectDB from './config/db.js'
 import productRoutes from './routes/productRoutes.js'
+import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 
 // Enable .env
 dotenv.config()
@@ -21,7 +22,14 @@ app.get('/', (req, res) => {
   res.send('API is running..')
 })
 
+// Product Routes
 app.use(`${API_URL}/products`, productRoutes)
+
+// Not Found Middleware
+app.use(notFound)
+
+// Error Handler Middleware
+app.use(errorHandler)
 
 app.listen(
   PORT,
