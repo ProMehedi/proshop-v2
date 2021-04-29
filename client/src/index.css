@@ -11,6 +11,14 @@ img {
   max-width: 100%;
 }
 
+.loader {
+  width: 100%;
+  height: calc(100vh - 220px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 main {
   min-height: 88.1vh;
 }

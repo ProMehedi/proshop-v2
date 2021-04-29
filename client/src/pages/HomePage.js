@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions'
+import Loader from '../components/Loader'
 import Product from '../components/Product'
 
 const HomePage = () => {
@@ -14,7 +15,7 @@ const HomePage = () => {
   }, [dispatch])
 
   if (loading) {
-    return <h1>Loading...</h1>
+    return <Loader />
   }
 
   if (error) {
