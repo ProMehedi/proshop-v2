@@ -19,6 +19,10 @@ img {
   align-items: center;
 }
 
+.loader.alert-container .alert {
+  width: 100%;
+}
+
 main {
   min-height: 88.1vh;
 }
