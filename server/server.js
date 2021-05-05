@@ -2,8 +2,9 @@ import express from 'express'
 import dotenv from 'dotenv'
 import colors from 'colors'
 import connectDB from './config/db.js'
-import productRoutes from './routes/productRoutes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
+import productRoutes from './routes/productRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 
 // Enable .env
 dotenv.config()
@@ -12,6 +13,8 @@ dotenv.config()
 connectDB()
 
 const app = express()
+
+app.use(express.json())
 
 // Define Variable
 const API_URL = process.env.API_URL || '/api/v1'
@@ -24,6 +27,9 @@ app.get('/', (req, res) => {
 
 // Product Routes
 app.use(`${API_URL}/products`, productRoutes)
+
+// User Routes
+app.use(`${API_URL}/users`, userRoutes)
 
 // Not Found Middleware
 app.use(notFound)
