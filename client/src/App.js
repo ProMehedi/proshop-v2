@@ -7,6 +7,7 @@ import CartPage from './pages/CartPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import ProductPage from './pages/ProductPage'
+import ProfilePage from './pages/ProfilePage'
 import RegisterPage from './pages/RegisterPage'
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
             <Route exact path='/' component={HomePage} />
             <Route path='/product/:id' component={ProductPage} />
             <Route path='/cart/:id?' component={CartPage} />
+            <Route path='/profile' component={ProfilePage} />
             <Route path='/login' component={LoginPage} />
             <Route path='/register' component={RegisterPage} />
           </Switch>
