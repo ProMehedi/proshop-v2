@@ -54,13 +54,22 @@ const Header = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <LinkContainer to='/login'>
-                  <Nav.Link>
-                    <Button size='sm'>
-                      <i className='fas fa-user'></i> Signin
-                    </Button>
-                  </Nav.Link>
-                </LinkContainer>
+                <>
+                  <LinkContainer to='/login'>
+                    <Nav.Link>
+                      <Button size='sm'>
+                        <i className='fas fa-user'></i> Signin
+                      </Button>
+                    </Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to='/register'>
+                    <Nav.Link>
+                      <Button size='sm' variant='secondary'>
+                        <i className='fas fa-user'></i> Signup
+                      </Button>
+                    </Nav.Link>
+                  </LinkContainer>
+                </>
               )}
             </Nav>
           </Navbar.Collapse>
