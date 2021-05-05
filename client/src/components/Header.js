@@ -1,8 +1,19 @@
 import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Button, Container, Nav, Navbar } from 'react-bootstrap'
+import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../actions/userActions'
 
 const Header = () => {
+  const dispatch = useDispatch()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const logoutHandler = () => {
+    dispatch(logout())
+  }
+
   return (
     <header className='header-wrap'>
       <Navbar
@@ -31,13 +42,26 @@ const Header = () => {
                   <i className='fas fa-shopping-cart'></i> Cart
                 </Nav.Link>
               </LinkContainer>
-              <LinkContainer to='/login'>
-                <Nav.Link>
-                  <Button size='sm'>
-                    <i className='fas fa-user'></i> Signin
-                  </Button>
-                </Nav.Link>
-              </LinkContainer>
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id='username'>
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item>
+                      <i className='fas fa-user'></i> Profile
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    <i className='fas fa-sign-out-alt'></i> Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to='/login'>
+                  <Nav.Link>
+                    <Button size='sm'>
+                      <i className='fas fa-user'></i> Signin
+                    </Button>
+                  </Nav.Link>
+                </LinkContainer>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>
