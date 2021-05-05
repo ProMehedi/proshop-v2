@@ -10,7 +10,7 @@ import {
   Row,
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart } from '../actions/cartActions'
+import { addToCart, removeFromCart } from '../actions/cartActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -29,7 +29,7 @@ const CartPage = ({ match, location, history }) => {
   }, [productId, qty, dispatch, match])
 
   const removeFromCartHandler = (id) => {
-    console.log('Removed', id)
+    dispatch(removeFromCart(id))
   }
 
   const checkoutHandler = () => {
@@ -94,9 +94,8 @@ const CartPage = ({ match, location, history }) => {
                           }
                         />
                         <Button
-                          type='button'
                           variant='danger btn-sm'
-                          onClick={removeFromCartHandler(item.product)}
+                          onClick={() => removeFromCartHandler(item.product)}
                         >
                           <i className='fas fa-trash-alt'></i>
                         </Button>
