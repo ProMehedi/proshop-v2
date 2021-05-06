@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { getUserDetails } from '../actions/userActions'
+import { getUserDetails, updateUser } from '../actions/userActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -17,10 +16,12 @@ const ProfilePage = ({ location, history }) => {
 
   const userDetails = useSelector((state) => state.userDetails)
   const { user, loading, error } = userDetails
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  const redirect = location.search ? location.search.split('=')[1] : '/'
+  const userUpdate = useSelector((state) => state.userUpdate)
+  const { success } = userUpdate
 
   useEffect(() => {
     if (!userInfo) {
@@ -41,8 +42,10 @@ const ProfilePage = ({ location, history }) => {
     if (password !== confirmPass) {
       setMessage('Password do not match!')
     } else {
+      dispatch(updateUser({ id: user._id, name, email, password }))
+      setPassword('')
+      setConfirmPass('')
       setMessage(null)
-      // dispatch(getUserProfile(name, email, password))
     }
   }
 
@@ -54,7 +57,9 @@ const ProfilePage = ({ location, history }) => {
     <>
       <Row>
         <Col lg={4} md={5}>
-          <h2 className='mb-4'>{userInfo.name.split(' ')[0]}'s Profile</h2>
+          {userInfo && (
+            <h2 className='mb-4'>{userInfo.name.split(' ')[0]}'s Profile</h2>
+          )}
           <Card className='mb-4'>
             <Card.Body>
               <Form onSubmit={submitHandler}>
@@ -104,6 +109,7 @@ const ProfilePage = ({ location, history }) => {
 
           {message && <Message variant='warning'>{message}</Message>}
           {error && <Message variant='danger'>{error}</Message>}
+          {success && <Message variant='success'>Profile Updated!</Message>}
         </Col>
         <Col lg={8} md={7}>
           <h2 className='mb-4'>My Orders</h2>
