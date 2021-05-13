@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveShippingAddress } from '../actions/cartActions'
+import CheckoutSteps from '../components/CheckoutSteps'
 import FormContainer from '../components/FormContainer'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -29,6 +30,8 @@ const ShippingPage = ({ history }) => {
 
   return (
     <FormContainer>
+      <CheckoutSteps step1 step2 />
+
       <h1 className='mb-4 text-center'>Shipping Information</h1>
       <Card className='mb-4'>
         <Card.Body>
