@@ -33,3 +33,33 @@ export const createOrder = (order) => async (dispatch, getState) => {
     })
   }
 }
+
+export const getOrderDetails = (orderId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ORDER.ORDER_DETAILS_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    console.log(userInfo.token)
+
+    const { data } = await axios.get(`/api/v1/orders/${orderId}`, config)
+
+    dispatch({ type: ORDER.ORDER_DETAILS_SUCCESS, payload: data })
+  } catch (error) {
+    dispatch({
+      type: ORDER.ORDER_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
