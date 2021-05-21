@@ -5,6 +5,7 @@ import connectDB from './config/db.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 
 // Enable .env
 dotenv.config()
@@ -30,6 +31,9 @@ app.use(`${API_URL}/products`, productRoutes)
 
 // User Routes
 app.use(`${API_URL}/users`, userRoutes)
+
+// Order Routes
+app.use(`${API_URL}/orders`, orderRoutes)
 
 // Not Found Middleware
 app.use(notFound)
