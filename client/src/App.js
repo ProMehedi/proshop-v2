@@ -7,6 +7,7 @@ import CartPage from './pages/CartPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import PaymentMethodPage from './pages/PaymentMethodPage'
+import PlaceOrderPage from './pages/PlaceOrderPage'
 import ProductPage from './pages/ProductPage'
 import ProfilePage from './pages/ProfilePage'
 import RegisterPage from './pages/RegisterPage'
@@ -27,6 +28,7 @@ const App = () => {
             <Route path='/register' component={RegisterPage} />
             <Route path='/shipping' component={ShippingPage} />
             <Route path='/payment' component={PaymentMethodPage} />
+            <Route path='/placeorder' component={PlaceOrderPage} />
           </Switch>
         </Container>
       </main>
