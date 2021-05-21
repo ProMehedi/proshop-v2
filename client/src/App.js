@@ -6,7 +6,7 @@ import Header from './components/Header'
 import CartPage from './pages/CartPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
-import PaymentPage from './pages/PaymentPage'
+import PaymentMethodPage from './pages/PaymentMethodPage'
 import ProductPage from './pages/ProductPage'
 import ProfilePage from './pages/ProfilePage'
 import RegisterPage from './pages/RegisterPage'
@@ -26,7 +26,7 @@ const App = () => {
             <Route path='/login' component={LoginPage} />
             <Route path='/register' component={RegisterPage} />
             <Route path='/shipping' component={ShippingPage} />
-            <Route path='/payment' component={PaymentPage} />
+            <Route path='/payment' component={PaymentMethodPage} />
           </Switch>
         </Container>
       </main>
