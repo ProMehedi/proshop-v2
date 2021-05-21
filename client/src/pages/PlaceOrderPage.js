@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { createOrder } from '../actions/orderActions'
 import CheckoutSteps from '../components/CheckoutSteps'
 import Message from '../components/Message'
 
-const PlaceOrderPage = () => {
+const PlaceOrderPage = ({ history }) => {
   const cart = useSelector((state) => state.cart)
   const { address, postalCode, country } = cart.shippingAddress
+
+  const dispatch = useDispatch()
 
   // Calculate Prices
   const addDecimals = (amount) => {
@@ -22,9 +25,29 @@ const PlaceOrderPage = () => {
     Number(cart.itemsPrice) + Number(cart.shippintPrice) + Number(cart.taxPrice)
   )
 
+  const orderCreate = useSelector((state) => state.orderCreate)
+  const { order, success, error } = orderCreate
+
   const placeOrderHandler = () => {
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    )
     console.log('Order Placed!')
   }
+
+  useEffect(() => {
+    if (success) {
+      history.push(`/orders/${order._id}`)
+    }
+  }, [history, order, success])
 
   return (
     <>
