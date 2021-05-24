@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { CART_REMOVE_ITEM } from '../constants/cartConstants'
 import * as ORDER from '../constants/orderConstants'
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -17,12 +16,9 @@ export const createOrder = (order) => async (dispatch, getState) => {
       },
     }
 
-    console.log(userInfo.token)
-
     const { data } = await axios.post('/api/v1/orders', order, config)
 
     dispatch({ type: ORDER.ORDER_CREATE_SUCCESS, payload: data })
-    // dispatch({ type: CART_REMOVE_ITEM, payload: data })
   } catch (error) {
     dispatch({
       type: ORDER.ORDER_CREATE_FAIL,
@@ -34,7 +30,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
   }
 }
 
-export const getOrderDetails = (orderId) => async (dispatch, getState) => {
+export const getOrderDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ORDER.ORDER_DETAILS_REQUEST })
 
@@ -48,9 +44,7 @@ export const getOrderDetails = (orderId) => async (dispatch, getState) => {
       },
     }
 
-    console.log(userInfo.token)
-
-    const { data } = await axios.get(`/api/v1/orders/${orderId}`, config)
+    const { data } = await axios.get(`/api/v1/orders/${id}`, config)
 
     dispatch({ type: ORDER.ORDER_DETAILS_SUCCESS, payload: data })
   } catch (error) {

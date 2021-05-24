@@ -11,6 +11,11 @@ img {
   max-width: 100%;
 }
 
+.d-inline .alert {
+  display: inline;
+  text-align: center;
+}
+
 .loader {
   width: 100%;
   height: calc(100vh - 220px);

@@ -6,6 +6,7 @@ import Header from './components/Header'
 import CartPage from './pages/CartPage'
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
+import OrderPage from './pages/OrderPage'
 import PaymentMethodPage from './pages/PaymentMethodPage'
 import PlaceOrderPage from './pages/PlaceOrderPage'
 import ProductPage from './pages/ProductPage'
@@ -29,6 +30,7 @@ const App = () => {
             <Route path='/shipping' component={ShippingPage} />
             <Route path='/payment' component={PaymentMethodPage} />
             <Route path='/placeorder' component={PlaceOrderPage} />
+            <Route path='/orders/:id' component={OrderPage} />
           </Switch>
         </Container>
       </main>

@@ -25,8 +25,8 @@ export const saveShippingAddress = (data) => (dispatch, getState) => {
   localStorage.setItem('shippingAddress', JSON.stringify(data))
 }
 
-export const savePaymentMethod = (paymentMethod) => (dispatch, getState) => {
-  dispatch({ type: CART.CART_SAVE_PAYMENT_METHOD, payload: paymentMethod })
+export const savePaymentMethod = (data) => (dispatch) => {
+  dispatch({ type: CART.CART_SAVE_PAYMENT_METHOD, payload: data })
 
-  localStorage.setItem('paymentMethod', JSON.stringify(paymentMethod))
+  localStorage.setItem('paymentMethod', JSON.stringify(data))
 }
