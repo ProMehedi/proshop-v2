@@ -75,3 +75,11 @@ export const updateOrderToPaid = asyncHandler(async (req, res) => {
     throw new Error('Order not update!')
   }
 })
+
+// @desc    Get Logged in user orders
+// @route   GET /api/v1/orders/myorders
+// @access  Private
+export const getMyOrders = asyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.user._id })
+  res.json(orders)
+})
