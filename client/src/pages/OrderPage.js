@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getOrderDetails } from '../actions/orderActions'
+import { PayPalButton } from 'react-paypal-button-v2'
+import { getOrderDetails, payOrder } from '../actions/orderActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import { ORDER_PAY_RESET } from '../constants/orderConstants'
 
 const OrderPage = ({ match }) => {
   const [sdkReady, setSdkReady] = useState(false)
@@ -20,9 +22,9 @@ const OrderPage = ({ match }) => {
   const orderPay = useSelector((state) => state.orderPay)
   const { loading: loadingPay, success: successPay, error: errorPay } = orderPay
 
-  const placeOrderHandler = () => {
-    dispatch()
-    console.log('Order Placed!')
+  const successPaymentHandler = (paymentResult) => {
+    console.log(paymentResult)
+    dispatch(payOrder(orderId, paymentResult))
   }
 
   useEffect(() => {
@@ -39,6 +41,7 @@ const OrderPage = ({ match }) => {
     }
 
     if (!order || successPay) {
+      dispatch({ type: ORDER_PAY_RESET })
       dispatch(getOrderDetails(orderId))
     } else if (!order.isPaid) {
       if (!window.paypal) {
@@ -180,15 +183,19 @@ const OrderPage = ({ match }) => {
                     <Col className='text-right'>${order.totalPrice}</Col>
                   </Row>
                 </ListGroup.Item>
-                <ListGroup.Item className='px-0'>
-                  <Button
-                    variant='primary btn-block'
-                    disabled={order.orderItems.length === 0}
-                    onClick={placeOrderHandler}
-                  >
-                    Place Order
-                  </Button>
-                </ListGroup.Item>
+                {!order.isPaid && (
+                  <ListGroup.Item className='px-0'>
+                    {loadingPay && <Loader />}
+                    {!sdkReady ? (
+                      <Loader />
+                    ) : (
+                      <PayPalButton
+                        amount={order.totalPrice}
+                        onSuccess={successPaymentHandler}
+                      />
+                    )}
+                  </ListGroup.Item>
+                )}
               </ListGroup>
             </Card.Body>
           </Card>
