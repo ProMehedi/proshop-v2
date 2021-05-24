@@ -6,15 +6,22 @@ import { listUsers } from '../actions/userActions'
 import { Button, Table } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
-const UserListPage = () => {
+const UserListPage = ({ history }) => {
   const dispatch = useDispatch()
 
   const userList = useSelector((state) => state.userList)
   const { users, loading, error } = userList
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
-    dispatch(listUsers())
-  }, [dispatch])
+    if (userInfo && userInfo.isAdmin) {
+      dispatch(listUsers())
+    } else {
+      history.push('/login')
+    }
+  }, [dispatch, history, userInfo])
 
   const deleteHandler = (user) => {
     console.log(user)
