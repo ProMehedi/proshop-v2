@@ -54,7 +54,7 @@ export const orderPayReducer = (state = {}, action) => {
   }
 }
 
-export const myOrderListReducer = (state = {}, action) => {
+export const myOrderListReducer = (state = { orders: [] }, action) => {
   switch (action.type) {
     case ORDER.USER_ORDER_LIST_REQUEST:
       return { loading: true }
@@ -64,6 +64,9 @@ export const myOrderListReducer = (state = {}, action) => {
 
     case ORDER.USER_ORDER_LIST_FAIL:
       return { loading: false, error: action.payload }
+
+    case ORDER.USER_ORDER_LIST_RESET:
+      return { orders: [] }
 
     default:
       return state
