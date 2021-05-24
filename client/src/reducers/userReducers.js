@@ -91,3 +91,19 @@ export const userListReducer = (state = { users: [] }, action) => {
       return state
   }
 }
+
+export const userDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER.USER_DELETE_REQUEST:
+      return { loading: true }
+
+    case USER.USER_DELETE_SUCCESS:
+      return { loading: false, success: true }
+
+    case USER.USER_DELETE_FAIL:
+      return { loading: false, error: action.payload }
+
+    default:
+      return state
+  }
+}
