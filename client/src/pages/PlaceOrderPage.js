@@ -39,7 +39,6 @@ const PlaceOrderPage = ({ history }) => {
       totalPrice: cart.totalPrice,
     }
     dispatch(createOrder(createdOrder))
-    console.log(createdOrder)
   }
 
   useEffect(() => {

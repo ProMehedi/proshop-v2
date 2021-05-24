@@ -35,6 +35,10 @@ app.use(`${API_URL}/users`, userRoutes)
 // Order Routes
 app.use(`${API_URL}/orders`, orderRoutes)
 
+app.get('/api/v1/config/paypal', (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+)
+
 // Not Found Middleware
 app.use(notFound)
 
