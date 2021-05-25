@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,6 +19,7 @@ const NewProduct = ({ history }) => {
   const [countInStock, setCountInStock] = useState(0)
   const [numReviews, setNumReviews] = useState(0)
   const [description, setDescription] = useState('')
+  const [uploading, setUploading] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -36,6 +38,26 @@ const NewProduct = ({ history }) => {
       history.push('/admin/products')
     }
   }, [dispatch, history, userInfo, success])
+
+  const uploadFileHandler = async (e) => {
+    setUploading(true)
+    const file = e.target.files[0]
+    const formData = new FormData()
+    formData.append('image', file)
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+      const { data } = await axios.post('/api/v1/upload', formData, config)
+      setImage(data)
+      setUploading(false)
+    } catch (uploadError) {
+      console.log(uploadError)
+      setUploading(false)
+    }
+  }
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -94,6 +116,13 @@ const NewProduct = ({ history }) => {
                   required
                   onChange={(e) => setImage(e.target.value)}
                 />
+                <Form.File
+                  id='image-file'
+                  label='Choose File'
+                  custom
+                  onChange={uploadFileHandler}
+                />
+                {uploading && <PulseLoader />}
               </Form.Group>
               <Form.Group controlId='brand'>
                 <Form.Label>Product Brand</Form.Label>
