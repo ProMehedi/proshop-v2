@@ -34,3 +34,31 @@ export const listProductDetails = (id) => async (dispatch) => {
     })
   }
 }
+
+// Product Details
+export const deleteProduct = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT.PRODUCT_DELETE_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    await axios.delete(`/api/v1/products/${id}`, config)
+    dispatch({ type: PRODUCT.PRODUCT_DELETE_SUCCESS })
+  } catch (error) {
+    dispatch({
+      type: PRODUCT.PRODUCT_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}

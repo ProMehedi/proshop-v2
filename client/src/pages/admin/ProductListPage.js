@@ -4,13 +4,21 @@ import Loader from '../../components/Loader'
 import Message from '../../components/Message'
 import { Button, Col, Row, Table } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import { listProducts } from '../../actions/productActions'
+import { deleteProduct, listProducts } from '../../actions/productActions'
+import { ClipLoader } from 'react-spinners'
 
 const ProductListPage = ({ history }) => {
   const dispatch = useDispatch()
 
   const productList = useSelector((state) => state.productList)
   const { products, loading, error } = productList
+
+  const productDelete = useSelector((state) => state.productDelete)
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -21,12 +29,11 @@ const ProductListPage = ({ history }) => {
     } else {
       history.push('/login')
     }
-  }, [dispatch, history, userInfo])
+  }, [dispatch, history, userInfo, successDelete])
 
-  const deleteHandler = (user) => {
+  const deleteHandler = (product) => {
     if (window.confirm('Are you sure you want to delete')) {
-      // dispatch(deleteUser(user))
-      console.log('Product Deleted!')
+      dispatch(deleteProduct(product))
     }
   }
 
@@ -82,13 +89,19 @@ const ProductListPage = ({ history }) => {
                     variant='danger btn-sm ml-2'
                     onClick={() => deleteHandler(product._id)}
                   >
-                    <i className='fas fa-trash'></i>
+                    {loadingDelete ? (
+                      <ClipLoader color='white' size={10} />
+                    ) : (
+                      <i className='fas fa-trash'></i>
+                    )}
                   </Button>
                 </td>
               </tr>
             ))}
         </tbody>
       </Table>
+
+      {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
     </>
   )
 }
