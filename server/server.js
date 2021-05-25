@@ -1,3 +1,4 @@
+import path from path
 import express from 'express'
 import dotenv from 'dotenv'
 import colors from 'colors'
@@ -6,6 +7,7 @@ import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
+import uploadRoutes from './routes/uploadRoutes.js'
 
 // Enable .env
 dotenv.config()
@@ -35,9 +37,16 @@ app.use(`${API_URL}/users`, userRoutes)
 // Order Routes
 app.use(`${API_URL}/orders`, orderRoutes)
 
+// Upload Routes
+app.use(`${API_URL}/upload`, uploadRoutes)
+
 app.get('/api/v1/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 )
+
+// Make Static Folder
+const __dirname = path.resolve()
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 // Not Found Middleware
 app.use(notFound)
