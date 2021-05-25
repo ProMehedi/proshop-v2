@@ -41,3 +41,20 @@ main {
   text-decoration: none;
   transition: all 0.3s;
 }
+
+.notfound {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  min-height: 50vh;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.notfound h2 {
+  color: rgb(255 0 0 / 70%);
+  font-weight: 700;
+  letter-spacing: 0.2rem;
+}

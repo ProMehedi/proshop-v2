@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { createOrder } from '../actions/orderActions'
 import CheckoutSteps from '../components/CheckoutSteps'
+import Loader from '../components/Loader'
 import Message from '../components/Message'
 
 const PlaceOrderPage = ({ history }) => {
@@ -26,7 +27,7 @@ const PlaceOrderPage = ({ history }) => {
   )
 
   const orderCreate = useSelector((state) => state.orderCreate)
-  const { order, success, error } = orderCreate
+  const { order, loading, success, error } = orderCreate
 
   const placeOrderHandler = () => {
     const createdOrder = {
@@ -46,6 +47,14 @@ const PlaceOrderPage = ({ history }) => {
       history.push(`/orders/${order._id}`)
     }
   }, [history, order, success])
+
+  if (loading) {
+    return <Loader />
+  }
+
+  if (error) {
+    return <Message variant='danger'>{error}</Message>
+  }
 
   return (
     <>

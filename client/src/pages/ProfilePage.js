@@ -6,6 +6,7 @@ import { listMyOrders } from '../actions/orderActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { LinkContainer } from 'react-router-bootstrap'
+import NotFound from '../components/NotFound'
 
 const ProfilePage = ({ location, history }) => {
   const [name, setName] = useState('')
@@ -40,7 +41,7 @@ const ProfilePage = ({ location, history }) => {
         setEmail(user.email)
       }
     }
-  }, [history, userInfo, dispatch, user])
+  }, [history, userInfo, dispatch, user, orders])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -121,20 +122,20 @@ const ProfilePage = ({ location, history }) => {
           <h2 className='mb-4'>My Orders</h2>
           {loadingOrders && <Loader />}
           {errorOrders && <Message variant='danger'>{errorOrders}</Message>}
-          <Table striped bordered hover responsive className='table-sm'>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>DATE</th>
-                <th>TOTAL</th>
-                <th>PAID</th>
-                <th>DELIVERED</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders &&
-                orders.map((order) => (
+          {orders && orders.length > 0 && (
+            <Table striped bordered hover responsive className='table-sm'>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>DATE</th>
+                  <th>TOTAL</th>
+                  <th>PAID</th>
+                  <th>DELIVERED</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders.map((order) => (
                   <tr key={order._id}>
                     <td>{order._id}</td>
                     <td>{order.createdAt.substring(0, 10)}</td>
@@ -160,8 +161,12 @@ const ProfilePage = ({ location, history }) => {
                     </td>
                   </tr>
                 ))}
-            </tbody>
-          </Table>
+              </tbody>
+            </Table>
+          )}
+          {orders && orders.length === 0 && (
+            <NotFound message='No Order Found!' />
+          )}
         </Col>
       </Row>
     </>

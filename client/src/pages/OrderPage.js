@@ -201,6 +201,7 @@ const OrderPage = ({ match }) => {
           </Card>
         </Col>
       </Row>
+      {errorPay && <Message variant='danger'>{errorPay}</Message>}
     </>
   )
 }
