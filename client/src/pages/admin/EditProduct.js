@@ -3,10 +3,11 @@ import { Button, Card, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { PulseLoader } from 'react-spinners'
-import { createProduct, listProductDetails } from '../../actions/productActions'
+import { listProductDetails, updateProduct } from '../../actions/productActions'
 import FormContainer from '../../components/FormContainer'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
+import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants'
 
 const EditProduct = ({ match, history }) => {
   const [name, setName] = useState('')
@@ -25,6 +26,13 @@ const EditProduct = ({ match, history }) => {
   const productDetails = useSelector((state) => state.productDetails)
   const { product, loading, error, success } = productDetails
 
+  const productUpdate = useSelector((state) => state.productUpdate)
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = productUpdate
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
@@ -32,26 +40,30 @@ const EditProduct = ({ match, history }) => {
     if (!userInfo.isAdmin) {
       history.push('/login')
     }
-    if (!product.name || product._id !== productId) {
-      dispatch(listProductDetails(productId))
-    } else {
-      setName(product.name || '')
-      setPrice(product.price || 0)
-      setImage(product.image || '')
-      setBrand(product.brand || '')
-      setCategory(product.category || '')
-      setCountInStock(product.countInStock || 0)
-      setNumReviews(product.numReviews || 0)
-      setDescription(product.description || '')
-    }
-    if (success) {
+
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET })
       history.push('/admin/products')
+    } else {
+      if (!product.name || product._id !== productId) {
+        dispatch(listProductDetails(productId))
+      } else {
+        setName(product.name || '')
+        setPrice(product.price || 0)
+        setImage(product.image || '')
+        setBrand(product.brand || '')
+        setCategory(product.category || '')
+        setCountInStock(product.countInStock || 0)
+        setNumReviews(product.numReviews || 0)
+        setDescription(product.description || '')
+      }
     }
-  }, [dispatch, history, userInfo, success, product, productId])
+  }, [dispatch, history, userInfo, successUpdate, product, productId])
 
   const submitHandler = (e) => {
     e.preventDefault()
     const createdProduct = {
+      _id: productId,
       name,
       price,
       image,
@@ -61,7 +73,7 @@ const EditProduct = ({ match, history }) => {
       numReviews,
       description,
     }
-    dispatch(createProduct(createdProduct))
+    dispatch(updateProduct(createdProduct))
   }
 
   if (loading) {
@@ -160,13 +172,14 @@ const EditProduct = ({ match, history }) => {
               </Form.Group>
               <Button type='submit' variant='primary'>
                 UPDATE PRODUCT{' '}
-                {loading && <PulseLoader color='white' size={10} />}
+                {loadingUpdate && <PulseLoader color='white' size={10} />}
               </Button>
             </Form>
           </Card.Body>
         </Card>
 
         {error && <Message variant='danger'>{error}</Message>}
+        {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
       </FormContainer>
     </>
   )
