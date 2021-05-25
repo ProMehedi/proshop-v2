@@ -180,3 +180,33 @@ export const deleteUser = (user) => async (dispatch, getState) => {
     })
   }
 }
+
+export const updateUserById = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER.USER_UPDATE_BY_ID_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put(`/api/v1/users/${user._id}`, user, config)
+
+    dispatch({ type: USER.USER_UPDATE_BY_ID_SUCCESS })
+    dispatch({ type: USER.USER_DETAILS_SUCCESS, payload: data })
+  } catch (error) {
+    dispatch({
+      type: USER.USER_UPDATE_BY_ID_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
