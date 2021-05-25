@@ -3,13 +3,12 @@ import { Button, Card, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { PulseLoader } from 'react-spinners'
-import { createProduct } from '../../actions/productActions'
+import { createProduct, listProductDetails } from '../../actions/productActions'
 import FormContainer from '../../components/FormContainer'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
-import { PRODUCT_CREATE_RESET } from '../../constants/productConstants'
 
-const NewProduct = ({ history }) => {
+const EditProduct = ({ match, history }) => {
   const [name, setName] = useState('')
   const [price, setPrice] = useState(0)
   const [image, setImage] = useState('')
@@ -19,10 +18,12 @@ const NewProduct = ({ history }) => {
   const [numReviews, setNumReviews] = useState(0)
   const [description, setDescription] = useState('')
 
+  const productId = match.params.id
+
   const dispatch = useDispatch()
 
-  const productCreate = useSelector((state) => state.productCreate)
-  const { loading, error, success } = productCreate
+  const productDetails = useSelector((state) => state.productDetails)
+  const { product, loading, error, success } = productDetails
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -31,11 +32,22 @@ const NewProduct = ({ history }) => {
     if (!userInfo.isAdmin) {
       history.push('/login')
     }
+    if (!product.name || product._id !== productId) {
+      dispatch(listProductDetails(productId))
+    } else {
+      setName(product.name || '')
+      setPrice(product.price || 0)
+      setImage(product.image || '')
+      setBrand(product.brand || '')
+      setCategory(product.category || '')
+      setCountInStock(product.countInStock || 0)
+      setNumReviews(product.numReviews || 0)
+      setDescription(product.description || '')
+    }
     if (success) {
-      dispatch({ type: PRODUCT_CREATE_RESET })
       history.push('/admin/products')
     }
-  }, [dispatch, history, userInfo, success])
+  }, [dispatch, history, userInfo, success, product, productId])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -62,7 +74,7 @@ const NewProduct = ({ history }) => {
         Go Back to Products
       </Link>
       <FormContainer>
-        <h1 className='mb-4 text-center'>CREATE NEW PRODUCT</h1>
+        <h1 className='mb-4 text-center'>EDIT PRODUCT</h1>
         <Card className='mb-4'>
           <Card.Body>
             <Form onSubmit={submitHandler}>
@@ -147,7 +159,7 @@ const NewProduct = ({ history }) => {
                 />
               </Form.Group>
               <Button type='submit' variant='primary'>
-                CREATE PRODUCT{' '}
+                UPDATE PRODUCT{' '}
                 {loading && <PulseLoader color='white' size={10} />}
               </Button>
             </Form>
@@ -160,4 +172,4 @@ const NewProduct = ({ history }) => {
   )
 }
 
-export default NewProduct
+export default EditProduct
