@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import { deleteUser, listUsers } from '../actions/userActions'
+import Loader from '../../components/Loader'
+import Message from '../../components/Message'
+import { deleteUser, listUsers } from '../../actions/userActions'
 import { Button, Table } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
@@ -74,7 +74,7 @@ const UserListPage = ({ history }) => {
                   )}
                 </td>
                 <td align='center'>
-                  <LinkContainer to={`/user/${user._id}/edit`}>
+                  <LinkContainer to={`/admin/user/${user._id}/edit`}>
                     <Button variant='primary btn-sm'>
                       <i className='fas fa-edit'></i>
                     </Button>
