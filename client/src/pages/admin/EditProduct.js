@@ -26,7 +26,7 @@ const EditProduct = ({ match, history }) => {
   const dispatch = useDispatch()
 
   const productDetails = useSelector((state) => state.productDetails)
-  const { product, loading, error, success } = productDetails
+  const { product, loading, error } = productDetails
 
   const productUpdate = useSelector((state) => state.productUpdate)
   const {

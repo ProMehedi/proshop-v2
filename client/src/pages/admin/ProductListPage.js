@@ -87,7 +87,7 @@ const ProductListPage = ({ history }) => {
                     </Button>
                   </LinkContainer>
                   <Button
-                    variant='danger btn-sm ml-2'
+                    variant='danger btn-sm mr-2'
                     onClick={() => deleteHandler(product._id)}
                   >
                     {loadingDelete ? (

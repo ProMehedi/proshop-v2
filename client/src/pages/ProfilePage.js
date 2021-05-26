@@ -155,7 +155,7 @@ const ProfilePage = ({ location, history }) => {
                       )}
                     </td>
                     <td align='center'>
-                      <LinkContainer to={`/orders/${order._id}`}>
+                      <LinkContainer to={`/order/${order._id}`}>
                         <Button variant='primary btn-sm'>Details</Button>
                       </LinkContainer>
                     </td>

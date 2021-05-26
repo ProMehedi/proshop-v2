@@ -1,59 +1,39 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
+import React, { useEffect } from 'react'
+import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { PayPalButton } from 'react-paypal-button-v2'
-import { getOrderDetails, payOrder } from '../actions/orderActions'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import { ORDER_PAY_RESET } from '../constants/orderConstants'
+import Loader from '../../components/Loader'
+import Message from '../../components/Message'
+import { ClipLoader } from 'react-spinners'
+import { getOrderDetails, deliverOrder } from '../../actions/orderActions'
 
-const OrderPage = ({ match, history }) => {
-  const [sdkReady, setSdkReady] = useState(false)
-
+const OrderDetailsPage = ({ match, history }) => {
   const dispatch = useDispatch()
 
   const orderDetails = useSelector((state) => state.orderDetails)
   const { order, loading, error } = orderDetails
 
-  const orderPay = useSelector((state) => state.orderPay)
-  const { loading: loadingPay, success: successPay, error: errorPay } = orderPay
+  const orderDeliver = useSelector((state) => state.orderDeliver)
+  const {
+    loading: loadingDeliver,
+    success: successDeliver,
+    error: errorDeliver,
+  } = orderDeliver
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
   useEffect(() => {
-    if (!userInfo) {
+    if (!userInfo.isAdmin) {
       history.push('/login')
     }
 
-    const addPaypalScript = async () => {
-      const { data: clientId } = await axios.get('/api/v1/config/paypal')
-      const script = document.createElement('script')
-      script.type = 'text/javascript'
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
-      script.async = true
-      script.onload = () => {
-        setSdkReady(true)
-      }
-      document.body.appendChild(script)
-    }
+    dispatch(getOrderDetails(match.params.id))
+  }, [dispatch, match, successDeliver, history, userInfo])
 
-    if (!order || successPay) {
-      dispatch({ type: ORDER_PAY_RESET })
-      dispatch(getOrderDetails(match.params.id))
-    } else if (!order.isPaid) {
-      if (!window.paypal) {
-        addPaypalScript()
-      } else {
-        setSdkReady(true)
-      }
-    }
-  }, [dispatch, match, order, successPay, userInfo, history])
-
-  const successPaymentHandler = (paymentResult) => {
-    dispatch(payOrder(match.params.id, paymentResult))
+  const deliveredHandler = (e) => {
+    e.preventDefault()
+    dispatch(deliverOrder(order))
   }
 
   if (loading) {
@@ -81,6 +61,9 @@ const OrderPage = ({ match, history }) => {
 
   return (
     <>
+      <Link to='/admin/orders' className='btn btn-dark mb-4'>
+        Go Back to Orders
+      </Link>
       <h2>Order #{order._id}</h2>
       <Row className='mt-5'>
         <Col md={8}>
@@ -189,17 +172,16 @@ const OrderPage = ({ match, history }) => {
                     <Col className='text-right'>${order.totalPrice}</Col>
                   </Row>
                 </ListGroup.Item>
-                {!order.isPaid && (
+                {!order.isDelivered && (
                   <ListGroup.Item className='px-0'>
-                    {loadingPay && <Loader />}
-                    {!sdkReady ? (
-                      <Loader />
-                    ) : (
-                      <PayPalButton
-                        amount={order.totalPrice}
-                        onSuccess={successPaymentHandler}
-                      />
-                    )}
+                    <Button
+                      onClick={deliveredHandler}
+                      type='button'
+                      variant='primary btn-block mr-2'
+                    >
+                      MARK AS DELIVERED
+                      {loadingDeliver && <ClipLoader color='white' size={10} />}
+                    </Button>
                   </ListGroup.Item>
                 )}
               </ListGroup>
@@ -207,9 +189,9 @@ const OrderPage = ({ match, history }) => {
           </Card>
         </Col>
       </Row>
-      {errorPay && <Message variant='danger'>{errorPay}</Message>}
+      {errorDeliver && <Message variant='danger'>{errorDeliver}</Message>}
     </>
   )
 }
 
-export default OrderPage
+export default OrderDetailsPage
