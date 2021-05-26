@@ -3,11 +3,13 @@ import * as PRODUCT from '../constants/productConstants'
 
 // List All Products
 export const listProducts =
-  (keyword = '') =>
+  (keyword = '', pageNumber = '') =>
   async (dispatch) => {
     try {
       dispatch({ type: PRODUCT.PRODUCT_LIST_REQUEST })
-      const { data } = await axios.get(`/api/v1/products?keyword=${keyword}`)
+      const { data } = await axios.get(
+        `/api/v1/products?keyword=${keyword}&pageNumber=${pageNumber}`
+      )
       dispatch({ type: PRODUCT.PRODUCT_LIST_SUCCESS, payload: data })
     } catch (error) {
       dispatch({

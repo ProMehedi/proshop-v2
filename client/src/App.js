@@ -30,6 +30,11 @@ const App = () => {
           <Switch>
             <Route exact path='/' component={HomePage} />
             <Route path='/search/:query' component={HomePage} />
+            <Route
+              path='/search/:query/page/:pageNumber'
+              component={HomePage}
+            />
+            <Route path='/page/:pageNumber' component={HomePage} />
             <Route path='/product/:id' component={ProductPage} />
             <Route path='/cart/:id?' component={CartPage} />
             <Route exact path='/profile' component={ProfilePage} />
@@ -42,8 +47,11 @@ const App = () => {
             <Route exact path='/admin/users' component={UserListPage} />
             <Route path='/admin/user/:id' component={EditUserPage} />
             <Route exact path='/admin/products' component={ProductListPage} />
+            <Route
+              path='/admin/products/page/:pageNumber'
+              component={ProductListPage}
+            />
             <Route exact path='/admin/product/new' component={NewProduct} />
-            <Route path='/admin/product/:id' component={EditProduct} />
             <Route exact path='/admin/orders' component={OrderListPage} />
             <Route exact path='/admin/order/:id' component={OrderDetailsPage} />
           </Switch>

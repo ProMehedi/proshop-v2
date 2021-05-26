@@ -5,18 +5,21 @@ import { listProducts } from '../actions/productActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import NotFound from '../components/NotFound'
+import Pagination from '../components/Pagination'
 import Product from '../components/Product'
 
 const HomePage = ({ match }) => {
   const query = match.params.query
+  const pageNumber = match.params.pageNumber || 1
 
   const dispatch = useDispatch()
+
   const productList = useSelector((state) => state.productList)
-  const { loading, error, products } = productList
+  const { loading, error, products, pages, page } = productList
 
   useEffect(() => {
-    dispatch(listProducts(query))
-  }, [dispatch, query])
+    dispatch(listProducts(query, pageNumber))
+  }, [dispatch, query, pageNumber])
 
   if (loading) {
     return <Loader />
@@ -49,6 +52,9 @@ const HomePage = ({ match }) => {
             </Col>
           ))}
       </Row>
+      <div className='mt-4'>
+        <Pagination pages={pages} page={page} query={query ? query : ''} />
+      </div>
       {products && products.length === 0 && (
         <NotFound message='No Product Found!' />
       )}
