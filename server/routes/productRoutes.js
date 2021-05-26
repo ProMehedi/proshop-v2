@@ -1,25 +1,25 @@
 import express from 'express'
-import {
-  createProduct,
-  createReview,
-  deleteProductById,
-  getProductById,
-  getProducts,
-  updateProduct,
-} from '../controllers/productController.js'
+import * as PRODUCT from '../controllers/productController.js'
 import { admin, protect } from '../middleware/authMiddleware.js'
 const router = express.Router()
 
 // Products Actions
-router.route('/').get(getProducts).post(protect, admin, createProduct)
+router
+  .route('/')
+  .get(PRODUCT.getProducts)
+  .post(protect, admin, PRODUCT.createProduct)
+
+// Get Top Products
+router.get('/top', PRODUCT.getTopProducts)
 
 // Product Actions by ID
 router
   .route('/:id')
-  .get(getProductById)
-  .put(protect, admin, updateProduct)
-  .delete(protect, admin, deleteProductById)
+  .get(PRODUCT.getProductById)
+  .put(protect, admin, PRODUCT.updateProduct)
+  .delete(protect, admin, PRODUCT.deleteProductById)
 
-router.route('/:id/reviews').post(protect, createReview)
+// Create New Review
+router.route('/:id/reviews').post(protect, PRODUCT.createReview)
 
 export default router
