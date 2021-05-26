@@ -29,10 +29,6 @@ const API_URL = process.env.API_URL || '/api/v1'
 const PORT = process.env.PORT || 5000
 const NODE_ENV = process.env.NODE_ENV
 
-app.get('/', (req, res) => {
-  res.send('API is running..')
-})
-
 // Product Routes
 app.use(`${API_URL}/products`, productRoutes)
 
@@ -49,8 +45,20 @@ app.get('/api/v1/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 )
 
-// Make Static Folder
 const __dirname = path.resolve()
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/client/build')))
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  )
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running..')
+  })
+}
+
+// Make Static Folder
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 // Not Found Middleware
