@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
 import { deleteUser, listUsers } from '../../actions/userActions'
@@ -48,6 +49,9 @@ const UserListPage = ({ history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>PROSHOP - User List</title>
+      </Helmet>
       <h1 className='mb-4'>USERS</h1>
       {users && users.length > 0 && (
         <Table striped bordered hover responsive className='table-sm'>

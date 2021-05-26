@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
@@ -61,6 +62,9 @@ const OrderDetailsPage = ({ match, history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>PROSHOP - Order Details</title>
+      </Helmet>
       <Link to='/admin/orders' className='btn btn-dark mb-4'>
         Go Back to Orders
       </Link>

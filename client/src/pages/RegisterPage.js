@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { register } from '../actions/userActions'
 import FormContainer from '../components/FormContainer'
@@ -43,65 +44,70 @@ const RegisterPage = ({ location, history }) => {
   }
 
   return (
-    <FormContainer>
-      <h1 className='mb-4 text-center'>Register for new account</h1>
-      <Card className='mb-4'>
-        <Card.Body>
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name'>
-              <Form.Label>Full Name</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter name'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId='email'>
-              <Form.Label>Email Address</Form.Label>
-              <Form.Control
-                type='email'
-                placeholder='Enter email'
-                value={email}
-                required
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId='password'>
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type='password'
-                placeholder='Enter password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId='confirmPass'>
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control
-                type='password'
-                placeholder='Enter confirm password'
-                value={confirmPass}
-                onChange={(e) => setConfirmPass(e.target.value)}
-              />
-            </Form.Group>
-            <Button type='submit' variant='primary'>
-              Signup
-            </Button>
-          </Form>
+    <>
+      <Helmet>
+        <title>PROSHOP - Register for a new account</title>
+      </Helmet>
+      <FormContainer>
+        <h1 className='mb-4 text-center'>Register for new account</h1>
+        <Card className='mb-4'>
+          <Card.Body>
+            <Form onSubmit={submitHandler}>
+              <Form.Group controlId='name'>
+                <Form.Label>Full Name</Form.Label>
+                <Form.Control
+                  type='text'
+                  placeholder='Enter name'
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group controlId='email'>
+                <Form.Label>Email Address</Form.Label>
+                <Form.Control
+                  type='email'
+                  placeholder='Enter email'
+                  value={email}
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group controlId='password'>
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type='password'
+                  placeholder='Enter password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group controlId='confirmPass'>
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control
+                  type='password'
+                  placeholder='Enter confirm password'
+                  value={confirmPass}
+                  onChange={(e) => setConfirmPass(e.target.value)}
+                />
+              </Form.Group>
+              <Button type='submit' variant='primary'>
+                Signup
+              </Button>
+            </Form>
 
-          <p className='mt-3 mb-0'>
-            Returing Customer?{' '}
-            <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
-              Signin now
-            </Link>
-          </p>
-        </Card.Body>
-      </Card>
+            <p className='mt-3 mb-0'>
+              Returing Customer?{' '}
+              <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
+                Signin now
+              </Link>
+            </p>
+          </Card.Body>
+        </Card>
 
-      {message && <Message variant='warning'>{message}</Message>}
-      {error && <Message variant='danger'>{error}</Message>}
-    </FormContainer>
+        {message && <Message variant='warning'>{message}</Message>}
+        {error && <Message variant='danger'>{error}</Message>}
+      </FormContainer>
+    </>
   )
 }
 

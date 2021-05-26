@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { PulseLoader } from 'react-spinners'
 import { listProductDetails, updateProduct } from '../../actions/productActions'
@@ -104,6 +105,9 @@ const EditProductPage = ({ match, history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>PROSHOP - Edit Product</title>
+      </Helmet>
       <Link to='/admin/products' className='btn btn-dark mb-4'>
         Go Back to Products
       </Link>

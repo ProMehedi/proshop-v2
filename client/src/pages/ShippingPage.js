@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { saveShippingAddress } from '../actions/cartActions'
 import CheckoutSteps from '../components/CheckoutSteps'
 import FormContainer from '../components/FormContainer'
@@ -29,58 +30,63 @@ const ShippingPage = ({ history }) => {
   }
 
   return (
-    <FormContainer>
-      <CheckoutSteps step1 step2 />
+    <>
+      <Helmet>
+        <title>PROSHOP - Shipping</title>
+      </Helmet>
+      <FormContainer>
+        <CheckoutSteps step1 step2 />
 
-      <h1 className='mb-4 text-center'>Shipping Information</h1>
-      <Card className='mb-4'>
-        <Card.Body>
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId='address'>
-              <Form.Label>Your Address</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter Address'
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId='city'>
-              <Form.Label>City</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter City'
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId='postalCode'>
-              <Form.Label>City</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Postal Code'
-                value={postalCode}
-                onChange={(e) => setPostalCode(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId='postalCode'>
-              <Form.Label>Country</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Country'
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-              />
-            </Form.Group>
-            <Button type='submit' variant='primary'>
-              Continue
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
+        <h1 className='mb-4 text-center'>Shipping Information</h1>
+        <Card className='mb-4'>
+          <Card.Body>
+            <Form onSubmit={submitHandler}>
+              <Form.Group controlId='address'>
+                <Form.Label>Your Address</Form.Label>
+                <Form.Control
+                  type='text'
+                  placeholder='Enter Address'
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group controlId='city'>
+                <Form.Label>City</Form.Label>
+                <Form.Control
+                  type='text'
+                  placeholder='Enter City'
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group controlId='postalCode'>
+                <Form.Label>City</Form.Label>
+                <Form.Control
+                  type='text'
+                  placeholder='Postal Code'
+                  value={postalCode}
+                  onChange={(e) => setPostalCode(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group controlId='postalCode'>
+                <Form.Label>Country</Form.Label>
+                <Form.Control
+                  type='text'
+                  placeholder='Country'
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                />
+              </Form.Group>
+              <Button type='submit' variant='primary'>
+                Continue
+              </Button>
+            </Form>
+          </Card.Body>
+        </Card>
 
-      {error && <Message variant='danger'>{error}</Message>}
-    </FormContainer>
+        {error && <Message variant='danger'>{error}</Message>}
+      </FormContainer>
+    </>
   )
 }
 

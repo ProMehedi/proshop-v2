@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { PayPalButton } from 'react-paypal-button-v2'
 import { getOrderDetails, payOrder } from '../actions/orderActions'
@@ -81,6 +82,9 @@ const OrderPage = ({ match, history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>PROSHOP - Order</title>
+      </Helmet>
       <h2>Order #{order._id}</h2>
       <Row className='mt-5'>
         <Col md={8}>

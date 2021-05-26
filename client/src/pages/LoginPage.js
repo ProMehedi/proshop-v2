@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { login } from '../actions/userActions'
 import FormContainer from '../components/FormContainer'
@@ -35,47 +36,52 @@ const LoginPage = ({ location, history }) => {
   }
 
   return (
-    <FormContainer>
-      <h1 className='mb-4 text-center'>Login to your account</h1>
-      <Card className='mb-4'>
-        <Card.Body>
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId='email'>
-              <Form.Label>Email Address</Form.Label>
-              <Form.Control
-                type='email'
-                placeholder='Enter email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group controlId='password'>
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type='password'
-                placeholder='Enter password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Form.Group>
-            <Button type='submit' variant='primary'>
-              Signin
-            </Button>
-          </Form>
+    <>
+      <Helmet>
+        <title>PROSHOP - Login to your account</title>
+      </Helmet>
+      <FormContainer>
+        <h1 className='mb-4 text-center'>Login to your account</h1>
+        <Card className='mb-4'>
+          <Card.Body>
+            <Form onSubmit={submitHandler}>
+              <Form.Group controlId='email'>
+                <Form.Label>Email Address</Form.Label>
+                <Form.Control
+                  type='email'
+                  placeholder='Enter email'
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group controlId='password'>
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type='password'
+                  placeholder='Enter password'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Group>
+              <Button type='submit' variant='primary'>
+                Signin
+              </Button>
+            </Form>
 
-          <p className='mt-3 mb-0'>
-            New Customer?{' '}
-            <Link
-              to={redirect ? `/register?redirect=${redirect}` : '/register'}
-            >
-              Create new account
-            </Link>
-          </p>
-        </Card.Body>
-      </Card>
+            <p className='mt-3 mb-0'>
+              New Customer?{' '}
+              <Link
+                to={redirect ? `/register?redirect=${redirect}` : '/register'}
+              >
+                Create new account
+              </Link>
+            </p>
+          </Card.Body>
+        </Card>
 
-      {error && <Message variant='danger'>{error}</Message>}
-    </FormContainer>
+        {error && <Message variant='danger'>{error}</Message>}
+      </FormContainer>
+    </>
   )
 }
 

@@ -5,7 +5,7 @@ import Product from '../models/productModel.js'
 // @route   GET /api/v1/products
 // @access  Puclic
 export const getProducts = asyncHandler(async (req, res) => {
-  const productsPerPage = 3
+  const productsPerPage = 8
   const page = Number(req.query.pageNumber) || 1
   const keyword = req.query.keyword
     ? { name: { $regex: req.query.keyword, $options: 'i' } }

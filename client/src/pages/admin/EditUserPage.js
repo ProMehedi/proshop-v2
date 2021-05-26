@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { PulseLoader } from 'react-spinners'
 import { getUserDetails, updateUserById } from '../../actions/userActions'
@@ -53,6 +54,9 @@ const EditUserPage = ({ match, location, history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>PROSHOP - Edit User</title>
+      </Helmet>
       <Link to='/admin/users' className='btn btn-dark mb-4'>
         Go Back to Users
       </Link>

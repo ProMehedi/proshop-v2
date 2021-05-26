@@ -10,6 +10,7 @@ import {
   Row,
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { addToCart, removeFromCart } from '../actions/cartActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -57,6 +58,9 @@ const CartPage = ({ match, location, history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>PROSHOP - Shopping Cart</title>
+      </Helmet>
       <h1 className='mb-4'>Cart Page</h1>
       <Row>
         <Col md={8}>

@@ -10,6 +10,7 @@ import {
   Row,
 } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { PulseLoader } from 'react-spinners'
 import { createReview, listProductDetails } from '../actions/productActions'
@@ -69,6 +70,10 @@ const ProductPage = ({ match, history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>{name}</title>
+        <meta name='description' content={description} />
+      </Helmet>
       <Link to='/' className='btn btn-dark mb-4'>
         Go Back to Home
       </Link>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { listProducts } from '../actions/productActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -36,6 +37,14 @@ const HomePage = ({ match }) => {
 
   return (
     <>
+      <Helmet>
+        <title>PROSHOP - Ecommerce Website with React & NodeJS</title>
+      </Helmet>
+      {!query && (
+        <div className='mb-4'>
+          <ProductCarousel />
+        </div>
+      )}
       <h1 className='mb-4'>
         {query ? (
           <>
@@ -45,11 +54,6 @@ const HomePage = ({ match }) => {
           'LATEST PRODUCTS'
         )}
       </h1>
-      {!query && (
-        <div className='mb-4'>
-          <ProductCarousel />
-        </div>
-      )}
       <Row>
         {products.length > 0 &&
           products.map((product) => (

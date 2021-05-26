@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { createOrder } from '../actions/orderActions'
 import CheckoutSteps from '../components/CheckoutSteps'
@@ -58,6 +59,9 @@ const PlaceOrderPage = ({ history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>PROSHOP - Place Order</title>
+      </Helmet>
       <CheckoutSteps step1 step2 step3 step4 />
       <Row className='mt-5'>
         <Col md={8}>

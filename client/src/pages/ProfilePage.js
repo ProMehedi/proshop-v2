@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Form, Row, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import { getUserDetails, updateUser } from '../actions/userActions'
 import { listMyOrders } from '../actions/orderActions'
 import Loader from '../components/Loader'
@@ -62,6 +63,9 @@ const ProfilePage = ({ location, history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>{`PROSHOP - ${name}'s profile`}</title>
+      </Helmet>
       <Row>
         <Col lg={4} md={5}>
           {userInfo && (

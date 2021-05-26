@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Helmet } from 'react-helmet'
 import Loader from '../../components/Loader'
 import Message from '../../components/Message'
 import { Button, Col, Row, Table } from 'react-bootstrap'
@@ -34,6 +35,9 @@ const OrderListPage = ({ history }) => {
 
   return (
     <>
+      <Helmet>
+        <title>PROSHOP - Order List</title>
+      </Helmet>
       <Row className='align-items-center mb-4'>
         <Col>
           <h1>ORDERS</h1>
