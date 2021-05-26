@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import NotFound from '../components/NotFound'
 import Product from '../components/Product'
 
 const HomePage = ({ match }) => {
@@ -41,12 +42,16 @@ const HomePage = ({ match }) => {
         )}
       </h1>
       <Row>
-        {products.map((product) => (
-          <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-            <Product product={product} />
-          </Col>
-        ))}
+        {products.length > 0 &&
+          products.map((product) => (
+            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+              <Product product={product} />
+            </Col>
+          ))}
       </Row>
+      {products && products.length === 0 && (
+        <NotFound message='No Product Found!' />
+      )}
     </>
   )
 }

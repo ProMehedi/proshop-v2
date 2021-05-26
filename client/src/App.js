@@ -32,9 +32,9 @@ const App = () => {
             <Route path='/search/:query' component={HomePage} />
             <Route path='/product/:id' component={ProductPage} />
             <Route path='/cart/:id?' component={CartPage} />
-            <Route path='/profile' component={ProfilePage} />
-            <Route path='/login' component={LoginPage} />
-            <Route path='/register' component={RegisterPage} />
+            <Route exact path='/profile' component={ProfilePage} />
+            <Route exact path='/login' component={LoginPage} />
+            <Route exact path='/register' component={RegisterPage} />
             <Route path='/shipping' component={ShippingPage} />
             <Route path='/payment' component={PaymentMethodPage} />
             <Route path='/placeorder' component={PlaceOrderPage} />

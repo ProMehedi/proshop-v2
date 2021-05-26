@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 
-const SearchBox = ({ history }) => {
+const SearchBox = ({ history, match }) => {
   const [query, setQuery] = useState('')
 
   useEffect(() => {
     if (query.trim()) {
       history.push(`/search/${query}`)
     } else {
-      history.push('/')
+      if (history.location.pathname.includes('search')) {
+        history.push('/')
+      }
     }
   }, [history, query])
 
@@ -23,9 +25,9 @@ const SearchBox = ({ history }) => {
           onChange={(e) => setQuery(e.target.value)}
           placeholder='Search Products...'
         />
-        <Button variant='primary'>
+        {/* <Button type='submit' variant='primary'>
           <i className='fas fa-search'></i>
-        </Button>
+        </Button> */}
       </Form>
     </>
   )
