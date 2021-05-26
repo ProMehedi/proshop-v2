@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import NotFound from '../components/NotFound'
 import Pagination from '../components/Pagination'
 import Product from '../components/Product'
+import ProductCarousel from '../components/ProductCarousel'
 
 const HomePage = ({ match }) => {
   const query = match.params.query
@@ -44,6 +45,11 @@ const HomePage = ({ match }) => {
           'LATEST PRODUCTS'
         )}
       </h1>
+      {!query && (
+        <div className='mb-4'>
+          <ProductCarousel />
+        </div>
+      )}
       <Row>
         {products.length > 0 &&
           products.map((product) => (

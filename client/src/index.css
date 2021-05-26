@@ -70,3 +70,13 @@ main {
   padding: 10px;
   width: 40px;
 }
+
+.carousel-item img {
+  margin: 0 auto;
+  display: block;
+}
+
+.carousel-caption {
+  background: rgb(255 255 255 / 75%);
+  border-radius: 3px;
+}

@@ -39,7 +39,7 @@ export const listProductDetails = (id) => async (dispatch) => {
   }
 }
 
-// Product Details
+// Delete Product
 export const deleteProduct = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT.PRODUCT_DELETE_REQUEST })
@@ -158,3 +158,20 @@ export const createReview =
       })
     }
   }
+
+// Top Rated Products
+export const topRatedProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT.PRODUCT_TOP_REQUEST })
+    const { data } = await axios.get(`/api/v1/products/top`)
+    dispatch({ type: PRODUCT.PRODUCT_TOP_SUCCESS, payload: data })
+  } catch (error) {
+    dispatch({
+      type: PRODUCT.PRODUCT_TOP_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}

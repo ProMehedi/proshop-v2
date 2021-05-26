@@ -10,7 +10,7 @@ import Loader from '../../components/Loader'
 import Message from '../../components/Message'
 import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants'
 
-const EditProduct = ({ match, history }) => {
+const EditProductPage = ({ match, history }) => {
   const [name, setName] = useState('')
   const [price, setPrice] = useState(0)
   const [image, setImage] = useState('')
@@ -215,4 +215,4 @@ const EditProduct = ({ match, history }) => {
   )
 }
 
-export default EditProduct
+export default EditProductPage

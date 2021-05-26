@@ -9,6 +9,7 @@ import * as USER from './reducers/userReducers'
 const reducer = combineReducers({
   productCreate: PRODUCT.productCreateReducer,
   productList: PRODUCT.productListReducer,
+  productTop: PRODUCT.productTopReducer,
   productDetails: PRODUCT.productDetailsReducer,
   productUpdate: PRODUCT.productUpdateReducer,
   productDelete: PRODUCT.productDeleteReducer,

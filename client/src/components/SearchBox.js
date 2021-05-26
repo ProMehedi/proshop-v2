@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 const SearchBox = ({ history, match }) => {
   const [query, setQuery] = useState('')

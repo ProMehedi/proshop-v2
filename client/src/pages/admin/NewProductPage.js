@@ -10,7 +10,7 @@ import Loader from '../../components/Loader'
 import Message from '../../components/Message'
 import { PRODUCT_CREATE_RESET } from '../../constants/productConstants'
 
-const NewProduct = ({ history }) => {
+const NewProductPage = ({ history }) => {
   const [name, setName] = useState('')
   const [price, setPrice] = useState(0)
   const [image, setImage] = useState('')
@@ -189,4 +189,4 @@ const NewProduct = ({ history }) => {
   )
 }
 
-export default NewProduct
+export default NewProductPage

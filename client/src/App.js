@@ -16,8 +16,8 @@ import ShippingPage from './pages/ShippingPage'
 import UserListPage from './pages/admin/UserListPage'
 import EditUserPage from './pages/admin/EditUserPage'
 import ProductListPage from './pages/admin/ProductListPage'
-import NewProduct from './pages/admin/NewProduct'
-import EditProduct from './pages/admin/EditProduct'
+import NewProductPage from './pages/admin/NewProductPage'
+import EditProductPage from './pages/admin/EditProductPage'
 import OrderListPage from './pages/admin/OrderListPage'
 import OrderDetailsPage from './pages/admin/OrderDetailsPage'
 
@@ -51,7 +51,8 @@ const App = () => {
               path='/admin/products/page/:pageNumber'
               component={ProductListPage}
             />
-            <Route exact path='/admin/product/new' component={NewProduct} />
+            <Route path='/admin/product/:id/edit' component={EditProductPage} />
+            <Route exact path='/admin/product/new' component={NewProductPage} />
             <Route exact path='/admin/orders' component={OrderListPage} />
             <Route exact path='/admin/order/:id' component={OrderDetailsPage} />
           </Switch>
