@@ -29,6 +29,7 @@ const App = () => {
         <Container>
           <Switch>
             <Route exact path='/' component={HomePage} />
+            <Route path='/search/:query' component={HomePage} />
             <Route path='/product/:id' component={ProductPage} />
             <Route path='/cart/:id?' component={CartPage} />
             <Route path='/profile' component={ProfilePage} />

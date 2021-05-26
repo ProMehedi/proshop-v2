@@ -58,3 +58,15 @@ main {
   font-weight: 700;
   letter-spacing: 0.2rem;
 }
+
+.searchForm input {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 3px;
+  min-width: 250px;
+}
+
+.searchForm button {
+  padding: 10px;
+  width: 40px;
+}
