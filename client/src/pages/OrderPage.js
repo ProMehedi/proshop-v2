@@ -147,7 +147,7 @@ const OrderPage = ({ match, history }) => {
                           />
                         </Col>
                         <Col md={7}>
-                          <Link to={`/products/${item.product}`}>
+                          <Link to={`/product/${item.product}`}>
                             {item.name}
                           </Link>
                         </Col>
