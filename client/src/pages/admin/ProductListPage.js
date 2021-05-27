@@ -9,6 +9,7 @@ import { deleteProduct, listProducts } from '../../actions/productActions'
 import { ClipLoader } from 'react-spinners'
 import NotFound from '../../components/NotFound'
 import Pagination from '../../components/Pagination'
+import { PRODUCT_DELETE_RESET } from '../../constants/productConstants'
 
 const ProductListPage = ({ match, history }) => {
   const pageNumber = match.params.pageNumber || 1
@@ -33,6 +34,9 @@ const ProductListPage = ({ match, history }) => {
       dispatch(listProducts('', pageNumber))
     } else {
       history.push('/login')
+    }
+    if (successDelete) {
+      dispatch({ type: PRODUCT_DELETE_RESET })
     }
   }, [dispatch, history, userInfo, successDelete, pageNumber])
 

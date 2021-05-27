@@ -51,6 +51,9 @@ export const productDeleteReducer = (state = {}, action) => {
     case PRODUCT.PRODUCT_DELETE_FAIL:
       return { loading: false, error: action.payload }
 
+    case PRODUCT.PRODUCT_DELETE_RESET:
+      return {}
+
     default:
       return state
   }
